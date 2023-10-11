@@ -1,7 +1,11 @@
 import { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 function Form() {
+  const navigate = useNavigate();
   const [formType, setFormType] = useState(0);
+
   return (
     <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-emerald-700 to-sky-700">
       <div className="bg-white h-[40rem] w-[65rem] rounded-xl flex flex-col items-center overflow-y-scroll">
@@ -10,7 +14,12 @@ function Form() {
             Risk Evaluation Form
           </h2> */}
           {formType != 0 && (
-            <div className="">
+            <div className="flex justify-between px-1 w-full">
+              <img
+                src="../public/tvs.png"
+                alt=""
+                className="object-contain h-10 w-64"
+              />
               <button
                 onClick={() => setFormType(0)}
                 className="h-10 bg-emerald-500 rounded-full w-24 font-bold font-inter text-white"
@@ -44,7 +53,12 @@ function Form() {
         )}
         {formType === 1 && (
           <div className="">
-            <form action="/submit" method="post" className="">
+            <form
+              action="/result"
+              method="post"
+              className=""
+              onSubmit={() => navigate("/result")}
+            >
               <h2 className="text-3xl font-inter font-semibold text-gray-600">
                 Loan and Repayment Information
               </h2>
@@ -186,6 +200,7 @@ function Form() {
                       type="radio"
                       name="9"
                       required
+                      checked
                       className="border border-black ml-2 h-10  p-3 rounded-lg text-sm"
                     />
                     <label className="font-inter ">False</label>
@@ -425,6 +440,324 @@ function Form() {
 
                 <div className="col-span-3 h-[2rem]" />
               </div>
+              <div className="flex justify-center items-center p-3">
+                <button
+                  type="submit"
+                  className="h-12  w-56 rounded-full bg-orange-400 text-white font-inter font-bold tracking-widest text-lg"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+        {formType === 2 && (
+          <div className="">
+            <form
+              action="/result"
+              method="post"
+              className=""
+              onSubmit={() => navigate("/result")}
+            >
+              <h2 className="text-3xl font-inter font-semibold text-gray-600">
+                Financial Information
+              </h2>
+              <p className="font-inter text-sm font-semibold mt-1 mb-2 text-slate-500">
+                Borrowing and payment history data of the customer
+              </p>
+              <div className="border border-b-2 mb-7 border-black" />
+              {/* First grid div*/}
+              <div className="grid grid-cols-3 gap-x-20 gap-y-7">
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className=" ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Disbursed Amount
+                  </label>
+
+                  <input
+                    type="number"
+                    name="1"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="Disbursed Amount"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Asset cost
+                  </label>
+
+                  <input
+                    type="number"
+                    name="2"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="Asset cost"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Loan to value ratio
+                  </label>
+
+                  <input
+                    type="number"
+                    name="3"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="LTV"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Primary disbursed amount
+                  </label>
+
+                  <input
+                    type="number"
+                    name="4"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="PDA"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className=" ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Primary current balance
+                  </label>
+
+                  <input
+                    type="number"
+                    name="5"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="Primary current balance"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Primary sanctioned amount
+                  </label>
+
+                  <input
+                    type="number"
+                    name="6"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="PSA"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Primary overdue accounts
+                  </label>
+
+                  <input
+                    type="number"
+                    name="7"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="0"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Primary active accounts
+                  </label>
+
+                  <input
+                    type="number"
+                    name="8"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="Rate of Interest"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Primary number of accounts
+                  </label>
+
+                  <input
+                    type="number"
+                    name="9"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="0"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Primary installment accounts
+                  </label>
+
+                  <input
+                    type="number"
+                    name="10"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="0"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Secondary disbursed amount
+                  </label>
+
+                  <input
+                    type="number"
+                    name="11"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="0"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Secondary current balance
+                  </label>
+
+                  <input
+                    type="number"
+                    name="12"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="0"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Secondary sanctioned amount
+                  </label>
+
+                  <input
+                    type="number"
+                    name="13"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="0"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Secondary number of accounts
+                  </label>
+
+                  <input
+                    type="number"
+                    name="14"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="0"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Secondary active accounts
+                  </label>
+
+                  <input
+                    type="number"
+                    name="15"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="0"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Secondary installment accounts
+                  </label>
+
+                  <input
+                    type="number"
+                    name="16"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="0"
+                  />
+                </div>
+
+                <div className="col-span-3 h-[2rem]" />
+              </div>
+              <h2 className="text-3xl font-inter font-semibold text-gray-600">
+                Credit and Score Information
+              </h2>
+              <p className="ml-1 font-inter text-sm font-semibold mt-1 mb-2 text-slate-500">
+                Past loans data of the customer
+              </p>
+              <div className="border border-b-2 mb-7 border-black" />
+              {/* First grid div*/}
+              <div className="grid grid-cols-3 gap-x-20 gap-y-7">
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                   Perform CNS score
+                  </label>
+
+                  <input
+                    type="number"
+                    name="17"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="Credit information bureau score"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Delinquent accounts
+                  </label>
+
+                  <input
+                    type="number"
+                    name="18"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="In last 6 months"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    New accounts
+                  </label>
+
+                  <input
+                    type="number"
+                    name="19"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="In last 6 months"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Number of inquiries
+                  </label>
+
+                  <input
+                    type="number"
+                    name="20"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="Number of inquiries"
+                  />
+                </div>
+                <div className="flex flex-col space-y-2 items-start justify-center">
+                  <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
+                    Employment Type
+                  </label>
+
+                  <input
+                    type="text"
+                    name="21"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="Salaried / Self-Employment"
+                  />
+                </div>
+                
+
+                <div className="col-span-3 h-[2rem]" />
+              </div>
+             
               <div className="flex justify-center items-center p-3">
                 <button
                   type="submit"
