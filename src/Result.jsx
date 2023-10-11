@@ -1,12 +1,27 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Speedometer from "../components/Speedometer";
 
 
 function Result() {
 
 
-    const [result,setResult] = useState(50)
+    const [result, setResult] = useState(50)
+    
+   
+    useEffect(() => {
+        async function getData() {
+            const res = (await fetch("http://127.0.0.1:8000/tvsinfo/")).then(response => response.json()).catch(err => console.log(err));
+            return res;
+        }
+
+        const res = getData();
+
+        setResult(result);
+
+
+
+    },[])
 
 
 
