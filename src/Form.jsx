@@ -7,8 +7,8 @@ function Form() {
   const [formType, setFormType] = useState(0);
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-emerald-700 to-sky-700">
-      <div className="bg-white h-[40rem] w-[65rem] rounded-xl flex flex-col items-center overflow-y-scroll">
+    <div className="min-h-screen overflow-hidden flex justify-center items-center bg-gradient-to-br from-emerald-700 to-sky-700">
+      <div className="bg-white h-[40rem] w-[65rem] rounded-xl flex flex-col items-center overflow-y-scroll overflow-x-hidden">
         <div className="flex mt-2 justify-end w-full mr-4 items-center mb-10">
           {/* <h2 className="font-bold font-inter p-2 text-slate-700 text-3xl uppercase tracking-widest">
             Risk Evaluation Form
@@ -344,7 +344,7 @@ function Form() {
                     name="18"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
-                    placeholder="From whom you purchased"
+                    placeholder="2.000000"
                   />
                 </div>
                 <div className="flex flex-col space-y-2 items-start justify-center">
@@ -353,11 +353,11 @@ function Form() {
                   </label>
 
                   <input
-                    type="number"
+                    type="text"
                     name="19"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
-                    placeholder="Product code"
+                    placeholder="SC/MO/MC/TL/RETOP"
                   />
                 </div>
                 <div className="flex flex-col space-y-2 items-start justify-center">
@@ -417,11 +417,11 @@ function Form() {
                   </label>
 
                   <input
-                    type="text"
+                    type="number"
                     name="23"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
-                    placeholder="Tier"
+                    placeholder="TIER 1/2/3/4"
                   />
                 </div>
                 <div className="flex flex-col space-y-2 items-start justify-center">
@@ -757,7 +757,7 @@ function Form() {
 
                 <div className="col-span-3 h-[2rem]" />
               </div>
-             
+
               <div className="flex justify-center items-center p-3">
                 <button
                   type="submit"
