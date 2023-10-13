@@ -6,6 +6,187 @@ function Form() {
   const navigate = useNavigate();
   const [formType, setFormType] = useState(0);
 
+  const dummyFormStates1 = {
+    twelve_month_bounce_history: 0,
+    maximum_mob: 0,
+    bounced_while_repaying: 0,
+    emi: 0,
+    loan_amount: 0,
+    tenure: 0,
+    advance_emi_paid: 0,
+    roi: 0,
+    bounced_in_first_emi: 0,
+    age: 0,
+    total_loans_taken: 0,
+    total_secured_loans: 0,
+    total_unsecured_loans: 0,
+    maximum_loan_sanctioned: 0,
+    thirty_days: 0,
+    sixty_days: 0,
+    ninety_days: 0,
+    dealer_code: 0,
+    product_code: "",
+    age_of_vehicle: 0,
+    employment_type: "",
+    resident_type: "",
+    tier: 0,
+    gender: "",
+  };
+  
+
+  const dummyFormStates2 = {
+    disbursed_amount: 0,
+    asset_cost: 0,
+    loan_to_value_ratio: 0,
+    primary_disbursed_amount: 0,
+    primary_current_balance: 0,
+    primary_sanctioned_amount: 0,
+    primary_overdue_accounts: 0,
+    primary_active_accounts: 0,
+    primary_number_of_accounts: 0,
+    primary_installment_accounts: 0,
+    secondary_disbursed_amount: 0,
+    secondary_current_balance: 0,
+    secondary_sanctioned_amount: 0,
+    secondary_overdue_accounts: 0,
+    secondary_active_accounts: 0,
+    secondary_number_of_accouts: 0,
+    secondary_installment_accounts: 0,
+    perform_cns_score: 0,
+    deliquent_accounts: 0,
+    new_accounts: 0,
+    number_of_inquiries: 0,
+    employment_type: "",
+  };
+
+  const [formData, setFormData] = useState({
+    twelve_month_bounce_history: 0,
+    maximum_mob: 0,
+    bounced_while_repaying: 0,
+    emi: 0,
+    loan_amount: 0,
+    tenure: 0,
+    advance_emi_paid: 0,
+    roi: 0,
+    bounced_in_first_emi: 0,
+    age: 0,
+    total_loans_taken: 0,
+    total_secured_loans: 0,
+    total_unsecured_loans: 0,
+    maximum_loan_sanctioned: 0,
+    thirty_days: 0,
+    sixty_days: 0,
+    ninety_days: 0,
+    dealer_code: 0,
+    product_code: "",
+    age_of_vehicle: 0,
+    employment_type: "",
+    resident_type: "",
+    tier: 0,
+    gender: "",
+  });
+
+  const [secondForm, setSecondForm] = useState({
+    
+    disbursed_amount: 0,
+    asset_cost: 0,
+    loan_to_value_ratio: 0,
+    primary_disbursed_amount: 0,
+    primary_current_balance: 0,
+    primary_sanctioned_amount: 0,
+    primary_overdue_accounts: 0,
+    primary_active_accounts: 0,
+    primary_number_of_accounts: 0,
+    primary_installment_accounts: 0,
+    secondary_disbursed_amount: 0,
+    secondary_current_balance: 0,
+    secondary_sanctioned_amount: 0,
+    secondary_overdue_accounts: 0,
+    secondary_active_accounts: 0,
+    secondary_number_of_accouts: 0,
+    secondary_installment_accounts:0,
+    perform_cns_score: 0,
+    deliquent_accounts: 0,
+    new_accounts: 0,
+    number_of_inquiries: 0,
+    employment_type:""
+    
+  })
+
+  const handleChange1 = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+    const handleChange2 = (e) => {
+      const { name, value } = e.target;
+      setSecondForm((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    };
+
+  const handleSubmit1 = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Make a POST request to the local server
+      const response = await fetch("http://127.0.0.1:8000/tvsinfo/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      console.log(formData);
+
+      setFormData(dummyFormStates1);
+      navigate("/result");
+
+      // Handle success, e.g., show a success message
+      console.log("Form submitted successfully!");
+    } catch (error) {
+      // Handle errors, e.g., show an error message
+      console.error("There was an error submitting the form:", error.message);
+    }
+  };
+   const handleSubmit2 = async (e) => {
+     e.preventDefault();
+
+     try {
+       // Make a POST request to the local server
+       const response = await fetch("http://127.0.0.1:8000/tvsinfo/", {
+         method: "POST",
+         headers: {
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify(secondForm),
+       });
+
+       if (!response.ok) {
+         throw new Error("Network response was not ok");
+       }
+       console.log(formData);
+
+       //reset the form aftera a successful post request is made
+       setSecondForm(dummyFormStates2);
+       navigate("/result");
+
+       // Handle success, e.g., show a success message
+       console.log("Form submitted successfully!");
+     } catch (error) {
+       // Handle errors, e.g., show an error message
+       console.error("There was an error submitting the form:", error.message);
+     }
+   };
+
   return (
     <div className="min-h-screen overflow-hidden flex justify-center items-center bg-gradient-to-br from-emerald-700 to-sky-700">
       <div className="bg-white h-[40rem] w-[65rem] rounded-xl flex flex-col items-center overflow-y-scroll overflow-x-hidden">
@@ -53,12 +234,7 @@ function Form() {
         )}
         {formType === 1 && (
           <div className="">
-            <form
-              action="/result"
-              method="post"
-              className=""
-              onSubmit={() => navigate("/result")}
-            >
+            <form onSubmit={handleSubmit1} className="">
               <h2 className="text-3xl font-inter font-semibold text-gray-600">
                 Loan and Repayment Information
               </h2>
@@ -75,7 +251,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="1"
+                    value={formData.twelve_month_bounce_history}
+                    onChange={handleChange1}
+                    name="twelve_month_bounce_history"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Number of times bounced"
@@ -88,7 +266,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="2"
+                    value={formData.maximum_mob}
+                    onChange={handleChange1}
+                    name="maximum_mob"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Monthly Outstanding Balance"
@@ -101,7 +281,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="3"
+                    value={formData.bounced_while_repaying}
+                    onChange={handleChange1}
+                    name="bounced_while_repaying"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Number of times"
@@ -114,7 +296,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="4"
+                    value={formData.emi}
+                    onChange={handleChange1}
+                    name="emi"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="EMI"
@@ -127,7 +311,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="5"
+                    value={formData.loan_amount}
+                    onChange={handleChange1}
+                    name="loan_amount"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Total Loan Amount"
@@ -140,7 +326,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="6"
+                    value={formData.tenure}
+                    onChange={handleChange1}
+                    name="tenure"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Tenure"
@@ -153,7 +341,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="7"
+                    value={formData.advance_emi_paid}
+                    onChange={handleChange1}
+                    name="advance_emi_paid"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Number of times"
@@ -166,7 +356,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="8"
+                    value={formData.roi}
+                    onChange={handleChange1}
+                    name="roi"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Rate of Interest"
@@ -191,14 +383,18 @@ function Form() {
                   <div className="ml-2 flex items-center justify-start space-x-4 h-10 w-60 border border-1 border-slate-800 rounded-lg">
                     <input
                       type="radio"
-                      name="9"
+                      value={formData.bounced_in_first_emi}
+                      onChange={handleChange1}
+                      name="bounced_in_first_emi"
                       required
                       className="border border-black ml-2 h-10  p-3 rounded-lg text-sm"
                     />
                     <label className="font-inter ">True</label>
                     <input
                       type="radio"
-                      name="9"
+                      value={formData.bounced_in_first_emi}
+                      onChange={handleChange1}
+                      name="bounced_in_first_emi"
                       required
                       checked
                       className="border border-black ml-2 h-10  p-3 rounded-lg text-sm"
@@ -213,7 +409,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="10"
+                    value={formData.age}
+                    onChange={handleChange1}
+                    name="age"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Age"
@@ -226,7 +424,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="11"
+                    value={formData.total_loans_taken}
+                    onChange={handleChange1}
+                    name="total_loans_taken"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Number of loans taken"
@@ -239,7 +439,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="12"
+                    value={formData.total_secured_loans}
+                    onChange={handleChange1}
+                    name="total_secured_loans"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Number of secured loans"
@@ -252,7 +454,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="13"
+                    value={formData.total_unsecured_loans}
+                    onChange={handleChange1}
+                    name="total_unsecured_loans"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Number of unsecured loans"
@@ -265,7 +469,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="14"
+                    value={formData.maximum_loan_sanctioned}
+                    onChange={handleChange1}
+                    name="maximum_loan_sanctioned"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="For a two-wheeler"
@@ -290,7 +496,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="13"
+                    value={formData.thirty_days}
+                    onChange={handleChange1}
+                    name="thirty_days"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Number of times"
@@ -303,7 +511,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="14"
+                    value={formData.sixty_days}
+                    onChange={handleChange1}
+                    name="sixty_days"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Number of times"
@@ -316,7 +526,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="15"
+                    value={formData.ninety_days}
+                    onChange={handleChange1}
+                    name="ninety_days"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Number of times"
@@ -341,7 +553,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="18"
+                    value={formData.dealer_code}
+                    onChange={handleChange1}
+                    name="dealer_code"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="2.000000"
@@ -354,7 +568,9 @@ function Form() {
 
                   <input
                     type="text"
-                    name="19"
+                    value={formData.product_code}
+                    onChange={handleChange1}
+                    name="product_code"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="SC/MO/MC/TL/RETOP"
@@ -367,7 +583,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="20"
+                    value={formData.age_of_vehicle}
+                    onChange={handleChange1}
+                    name="age_of_vehicle"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Age of vehicle"
@@ -392,7 +610,9 @@ function Form() {
 
                   <input
                     type="text"
-                    name="21"
+                    value={formData.employment_type}
+                    onChange={handleChange1}
+                    name="employment_type"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Salaried / Self-Employed"
@@ -405,7 +625,9 @@ function Form() {
 
                   <input
                     type="text"
-                    name="22"
+                    value={formData.resident_type}
+                    onChange={handleChange1}
+                    name="resident_type"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Resident Type"
@@ -418,7 +640,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="23"
+                    value={formData.tier}
+                    onChange={handleChange1}
+                    name="tier"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="TIER 1/2/3/4"
@@ -431,7 +655,9 @@ function Form() {
 
                   <input
                     type="text"
-                    name="24"
+                    value={formData.gender}
+                    onChange={handleChange1}
+                    name="gender"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Male / Female / Other"
@@ -454,10 +680,8 @@ function Form() {
         {formType === 2 && (
           <div className="">
             <form
-              action="/result"
-              method="post"
-              className=""
-              onSubmit={() => navigate("/result")}
+              onSubmit={handleSubmit2}
+
             >
               <h2 className="text-3xl font-inter font-semibold text-gray-600">
                 Financial Information
@@ -475,7 +699,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="1"
+                    value={secondForm.disbursed_amount}
+                    onChange={handleChange2}
+                    name="disbursed_amount"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Disbursed Amount"
@@ -488,7 +714,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="2"
+                    value={secondForm.asset_cost}
+                    onChange={handleChange2}
+                    name="asset_cost"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Asset cost"
@@ -501,7 +729,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="3"
+                    value={secondForm.loan_to_value_ratio}
+                    onChange={handleChange2}
+                    name="loan_to_value_ratio"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="LTV"
@@ -514,7 +744,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="4"
+                    value={secondForm.primary_disbursed_amount}
+                    onChange={handleChange2}
+                    name="primary_disbursed_amount"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="PDA"
@@ -527,7 +759,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="5"
+                    value={secondForm.primary_current_balance}
+                    onChange={handleChange2}
+                    name="primary_current_balance"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Primary current balance"
@@ -540,7 +774,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="6"
+                    value={secondForm.primary_sanctioned_amount}
+                    onChange={handleChange2}
+                    name="primary_sanctioned_amount"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="PSA"
@@ -553,7 +789,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="7"
+                    value={secondForm.primary_overdue_accounts}
+                    onChange={handleChange2}
+                    name="primary_overdue_accounts"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="0"
@@ -566,7 +804,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="8"
+                    value={secondForm.primary_active_accounts}
+                    onChange={handleChange2}
+                    name="primary_active_accounts"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Rate of Interest"
@@ -579,7 +819,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="9"
+                    value={secondForm.primary_number_of_accounts}
+                    onChange={handleChange2}
+                    name="primary_number_of_accounts"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="0"
@@ -592,7 +834,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="10"
+                    value={secondForm.primary_installment_accounts}
+                    onChange={handleChange2}
+                    name="primary_installment_accounts"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="0"
@@ -605,7 +849,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="11"
+                    value={secondForm.secondary_disbursed_amount}
+                    onChange={handleChange2}
+                    name="secondary_disbursed_amount"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="0"
@@ -618,7 +864,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="12"
+                    value={secondForm.secondary_current_balance}
+                    onChange={handleChange2}
+                    name="secondary_current_balance"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="0"
@@ -631,7 +879,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="13"
+                    value={secondForm.secondary_sanctioned_amount}
+                    onChange={handleChange2}
+                    name="secondary_sanctioned_amount"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="0"
@@ -644,7 +894,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="14"
+                    value={secondForm.secondary_number_of_accouts}
+                    onChange={handleChange2}
+                    name="secondary_number_of_accouts"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="0"
@@ -657,7 +909,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="15"
+                    value={secondForm.secondary_active_accounts}
+                    onChange={handleChange2}
+                    name="secondary_active_accounts"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="0"
@@ -670,7 +924,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="16"
+                    value={secondForm.secondary_installment_accounts}
+                    onChange={handleChange2}
+                    name="secondary_installment_accounts"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="0"
@@ -690,12 +946,14 @@ function Form() {
               <div className="grid grid-cols-3 gap-x-20 gap-y-7">
                 <div className="flex flex-col space-y-2 items-start justify-center">
                   <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
-                   Perform CNS score
+                    Perform CNS score
                   </label>
 
                   <input
                     type="number"
-                    name="17"
+                    value={secondForm.perform_cns_score}
+                    onChange={handleChange2}
+                    name="perform_cns_score"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Credit information bureau score"
@@ -708,7 +966,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="18"
+                    value={secondForm.deliquent_accounts}
+                    onChange={handleChange2}
+                    name="deliquent_accounts"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="In last 6 months"
@@ -721,7 +981,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="19"
+                    value={secondForm.new_accounts}
+                    onChange={handleChange2}
+                    name="new_accounts"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="In last 6 months"
@@ -734,7 +996,9 @@ function Form() {
 
                   <input
                     type="number"
-                    name="20"
+                    value={secondForm.number_of_inquiries}
+                    onChange={handleChange2}
+                    name="number_of_inquiries"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Number of inquiries"
@@ -747,13 +1011,14 @@ function Form() {
 
                   <input
                     type="text"
-                    name="21"
+                    value={secondForm.employment_type}
+                    onChange={handleChange2}
+                    name="employment_type"
                     required
                     className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                     placeholder="Salaried / Self-Employment"
                   />
                 </div>
-                
 
                 <div className="col-span-3 h-[2rem]" />
               </div>
