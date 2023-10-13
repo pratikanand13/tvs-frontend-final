@@ -1,29 +1,16 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from "react";
+
 import Speedometer from "../components/Speedometer";
 
 
+
 function Result() {
-
-
-    const [result, setResult] = useState(50)
     
-   
-    useEffect(() => {
-        async function getData() {
-            const res = (await fetch("http://127.0.0.1:8000/tvsinfo/")).then(response => response.json()).catch(err => console.log(err));
-            return res;
-        }
-
-        const res = getData();
-
-        setResult(result);
-
-
-
-    },[])
-
-
+     const searchParams = new URLSearchParams(window.location.search);
+     const result = searchParams.get("result");  
+  
+    console.log(result)
 
     return (
         <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-emerald-700 to-sky-700 ">
