@@ -1,50 +1,44 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
 function Form2({ secondForm, setSecondForm }) {
+  const navigate = useNavigate();
+  const handleChange2 = (e) => {
+    const { name, value } = e.target;
+    setSecondForm((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-    const navigate = useNavigate();
-      const handleChange2 = (e) => {
-        const { name, value } = e.target;
-        setSecondForm((prevData) => ({
-          ...prevData,
-          [name]: value,
-        }));
-      };
+  const handleSubmit2 = async (e) => {
+    e.preventDefault();
 
-    
-    const handleSubmit2 = async (e) => {
-      e.preventDefault();
+    try {
+      // Make a POST request to the local server
+      const response = await fetch("http://127.0.0.1:8000/tvsinfo/global/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(secondForm),
+      });
 
-      try {
-        // Make a POST request to the local server
-        const response = await fetch("http://127.0.0.1:8000/tvsinfo/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(secondForm),
-        });
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        
-
-        //reset the form aftera a successful post request is made
-       
-        /*  eslint-disable-next-line */
-        navigate(`/result?result=${response.body.result}`);
-
-        // Handle success, e.g., show a success message
-        console.log("Form submitted successfully!");
-      } catch (error) {
-        // Handle errors, e.g., show an error message
-        console.error("There was an error submitting the form:", error.message);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
-    };
 
+      //reset the form aftera a successful post request is made
 
+      /*  eslint-disable-next-line */
+      navigate(`/result?result=${response.body.result}`);
 
+      // Handle success, e.g., show a success message
+      console.log("Form submitted successfully!");
+    } catch (error) {
+      // Handle errors, e.g., show an error message
+      console.error("There was an error submitting the form:", error.message);
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit2}>
@@ -199,9 +193,9 @@ function Form2({ secondForm, setSecondForm }) {
 
           <input
             type="number"
-            value={secondForm.primary_installment_accounts}
+            value={secondForm.primary_installment_amount}
             onChange={handleChange2}
-            name="primary_installment_accounts"
+            name="primary_installment_amount"
             required
             className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
             placeholder="0"
@@ -259,9 +253,9 @@ function Form2({ secondForm, setSecondForm }) {
 
           <input
             type="number"
-            value={secondForm.secondary_number_of_accouts}
+            value={secondForm.secondary_number_of_accounts}
             onChange={handleChange2}
-            name="secondary_number_of_accouts"
+            name="secondary_number_of_accounts"
             required
             className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
             placeholder="0"
@@ -289,9 +283,9 @@ function Form2({ secondForm, setSecondForm }) {
 
           <input
             type="number"
-            value={secondForm.secondary_installment_accounts}
+            value={secondForm.secondary_installment_amount}
             onChange={handleChange2}
-            name="secondary_installment_accounts"
+            name="secondary_installment_amount"
             required
             className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
             placeholder="0"
@@ -400,4 +394,4 @@ function Form2({ secondForm, setSecondForm }) {
   );
 }
 
-export default Form2
+export default Form2;

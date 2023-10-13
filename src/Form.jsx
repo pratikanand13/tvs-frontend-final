@@ -1,13 +1,10 @@
 import { useState } from "react";
 
-
 import Form2 from "../components/Form2";
 import Form1 from "../components/Form1";
 
 function Form() {
-  
   const [formType, setFormType] = useState(0);
-
 
   const [formData, setFormData] = useState({
     twelve_month_bounce_history: 0,
@@ -46,21 +43,20 @@ function Form() {
     primary_overdue_accounts: 0,
     primary_active_accounts: 0,
     primary_number_of_accounts: 0,
-    primary_installment_accounts: 0,
+    primary_installment_amount: 0,
     secondary_disbursed_amount: 0,
     secondary_current_balance: 0,
     secondary_sanctioned_amount: 0,
     secondary_overdue_accounts: 0,
     secondary_active_accounts: 0,
-    secondary_number_of_accouts: 0,
-    secondary_installment_accounts: 0,
+    secondary_number_of_accounts: 0,
+    secondary_installment_amount: 0,
     perform_cns_score: 0,
     deliquent_accounts: 0,
     new_accounts: 0,
     number_of_inquiries: 0,
     employment_type: "",
   });
-
 
   return (
     <div className="min-h-screen overflow-hidden flex justify-center items-center bg-gradient-to-br from-emerald-700 to-sky-700">

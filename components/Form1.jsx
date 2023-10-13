@@ -2,53 +2,44 @@
 
 import { useNavigate } from "react-router-dom";
 
- 
-
 function Form1({ formData, setFormData }) {
+  const navigate = useNavigate();
+  const handleChange1 = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-    const navigate = useNavigate();
-    const handleChange1 = (e) => {
-      const { name, value } = e.target;
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    };
+  const handleSubmit1 = async (e) => {
+    e.preventDefault();
 
-     const handleSubmit1 = async (e) => {
-       e.preventDefault();
+    try {
+      // Make a POST request to the local server
+      const response = await fetch("http://127.0.0.1:8000/tvsinfo/local/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-       try {
-         // Make a POST request to the local server
-         const response = await fetch("http://127.0.0.1:8000/tvsinfo/", {
-           method: "POST",
-           headers: {
-             "Content-Type": "application/json",
-           },
-           body: JSON.stringify(formData),
-         });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      console.log(formData);
 
-         if (!response.ok) {
-           throw new Error("Network response was not ok");
-         }
-         console.log(formData);
+      /*  eslint-disable-next-line */
+      navigate(`/result?result=${response.body.result}`);
 
-         
-         /*  eslint-disable-next-line */
-         navigate(`/result?result=${response.body.result}`);
-
-         // Handle success, e.g., show a success message
-         console.log("Form submitted successfully!");
-       } catch (error) {
-         // Handle errors, e.g., show an error message
-         console.error(
-           "There was an error submitting the form:",
-           error.message
-         );
-       }
-     };
-
-    
+      // Handle success, e.g., show a success message
+      console.log("Form submitted successfully!");
+    } catch (error) {
+      // Handle errors, e.g., show an error message
+      console.error("There was an error submitting the form:", error.message);
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit1} className="">
@@ -495,4 +486,4 @@ function Form1({ formData, setFormData }) {
   );
 }
 
-export default Form1
+export default Form1;
