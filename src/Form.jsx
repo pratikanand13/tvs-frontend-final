@@ -788,7 +788,7 @@ function Form() {
               </div>
               <div className="flex flex-col space-y-2 items-start justify-center">
                 <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
-                  Primary installment accounts
+                  Primary installment amount
                 </label>
 
                 <input
@@ -878,7 +878,7 @@ function Form() {
               </div>
               <div className="flex flex-col space-y-2 items-start justify-center">
                 <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
-                  Secondary installment accounts
+                  Secondary installment amount
                 </label>
 
                 <input
