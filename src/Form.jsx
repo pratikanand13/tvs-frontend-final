@@ -1,8 +1,9 @@
 import { useState } from "react";
 
-
+import { useNavigate } from "react-router-dom";
 
 function Form() {
+  const navigate = useNavigate();
   const [formType, setFormType] = useState(0);
 
   const [formData, setFormData] = useState({

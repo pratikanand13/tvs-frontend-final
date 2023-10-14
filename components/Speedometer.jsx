@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 const Speedometer = ({ speed }) => {
-  const [value, setValue] = useState(speed || 0);
+  const [value] = useState(speed || 0);
 
   return (
     <div className="center">
@@ -20,12 +20,17 @@ const Speedometer = ({ speed }) => {
                 maxValue={100}
                 ringWidth={20}
                 customSegmentStops={[
-                  0,20, 40, 60,80,100,
+                  0,10,20,30, 40,50 ,60,70,80,90,100,
                 ]}
                 segmentColors={[
-                  "#355E3B",
-                  "#355E3B",
-                  "#355E3B",
+                  "#228B22",
+                  "#228B22",
+                  "#228B22",
+                  "#228B22",
+                  "#E4D00A",
+                  "#E4D00A",
+                  "#E4D00A",
+                  "#FF0000",
                   "#FF0000",
                   "#FF0000"
                 ]}
