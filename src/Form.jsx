@@ -82,12 +82,17 @@ function Form() {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      console.log(formData);
 
-      /*  eslint-disable-next-line */
-      navigate(
-        `/result?result=${response.body.result}&interestRate=${response.body.interestRate}`
-      );
+      const res = await response.json();
+      console.log(formData);
+      if (res.result) {
+        /*  eslint-disable-next-line */
+        navigate(
+          `/result?result=${res.result}&interestRate=${res.interestRate}`
+        );
+      } else {
+        alert("Form Error!");
+      }
 
       // Handle success, e.g., show a success message
       console.log("Form submitted successfully!");
@@ -97,42 +102,47 @@ function Form() {
     }
   };
 
-   const handleChange2 = (e) => {
-     const { name, value } = e.target;
-     setSecondForm((prevData) => ({
-       ...prevData,
-       [name]: value,
-     }));
-   };
+  const handleChange2 = (e) => {
+    const { name, value } = e.target;
+    setSecondForm((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-   const handleSubmit2 = async (e) => {
-     e.preventDefault();
+  const handleSubmit2 = async (e) => {
+    e.preventDefault();
 
-     try {
-       // Make a POST request to the local server
-       const response = await fetch("http://127.0.0.1:8000/tvsinfo/global/", {
-         method: "POST",
-         headers: {
-           "Content-Type": "application/json",
-         },
-         body: JSON.stringify(secondForm),
-       });
+    try {
+      // Make a POST request to the local server
+      const response = await fetch("http://127.0.0.1:8000/tvsinfo/global/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(secondForm),
+      });
 
-       if (!response.ok) {
-         throw new Error("Network response was not ok");
-       }
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const res = await response.json();
 
-       //reset the form aftera a successful post request is made
-
-       /*  eslint-disable-next-line */
-       navigate(`/result?result=${response.body.result}`);
-
-       // Handle success, e.g., show a success message
-       console.log("Form submitted successfully!");
-     } catch (error) {
-       // Handle errors, e.g., show an error message
-       console.error("There was an error submitting the form:", error.message);
-     }
+      //reset the form aftera a successful post request is made
+      if (res.result) {
+        /*  eslint-disable-next-line */
+        navigate(
+          `/result?result=${res.result}&interestRate=${res.interestRate}`
+        );
+      } else {
+        alert("Form Error!");
+      }
+      // Handle success, e.g., show a success message
+      console.log("Form submitted successfully!");
+    } catch (error) {
+      // Handle errors, e.g., show an error message
+      console.error("There was an error submitting the form:", error.message);
+    }
   };
   
 
