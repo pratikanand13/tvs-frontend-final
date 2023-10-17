@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function App() {
 
   return (
-    <div className="min-h-screen bg-[#F5F5F5] ">
+    <div className="min-h-screen bg-[#F5F5F5]">
       <div className="h-24 flex  items-center justify-between max-w-6xl mx-auto">
         <span className="p-4 flex items-center">
           <img

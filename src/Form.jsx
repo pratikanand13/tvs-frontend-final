@@ -15,7 +15,7 @@ function Form() {
     tenure: 0,
     advance_emi_paid: 0,
     roi: 0,
-    bounced_in_first_emi: 0,
+    bounced_in_first_emi: true,
     age: 0,
     total_loans_taken: 0,
     total_secured_loans: 0,
@@ -25,12 +25,12 @@ function Form() {
     sixty_days: 0,
     ninety_days: 0,
     dealer_code: 0,
-    product_code: "",
+    product_code: "SC",
     age_of_vehicle: 0,
-    employment_type: "",
-    resident_type: "",
+    employment_type: "SELF",
+    resident_type: "OWNED",
     tier: 0,
-    gender: "",
+    gender: "Male",
   });
 
   const [secondForm, setSecondForm] = useState({
@@ -71,6 +71,7 @@ function Form() {
 
     try {
       // Make a POST request to the local server
+      console.log(formData);
       const response = await fetch("http://127.0.0.1:8000/tvsinfo/local/", {
         method: "POST",
         headers: {
@@ -80,6 +81,7 @@ function Form() {
       });
 
       if (!response.ok) {
+        alert("Form Error!")
         throw new Error("Network response was not ok");
       }
 
@@ -155,7 +157,7 @@ function Form() {
 
     // </>
 
-    <div className="min-h-screen overflow-hidden flex justify-center items-center bg-gradient-to-br from-emerald-700 to-sky-700">
+    <div className="min-h-screen bg-[url('/public/bgg.avif')] bg-cover overflow-hidden flex justify-center items-center">
       <div className="bg-white h-[40rem] w-[65rem] rounded-xl flex flex-col items-center overflow-y-scroll overflow-x-hidden">
         <div className="flex mt-2 justify-end w-full mr-4 items-center mb-10">
           {formType != 0 && (
@@ -175,23 +177,46 @@ function Form() {
           )}
         </div>
         {formType === 0 && (
-          <div className="flex flex-col justify-center items-center mt-56">
-            <div className="text-3xl font-inter font-bold">
-              Are you an existing customer of TVS?
+          <div className="flex flex-col justify-center w-full px-20">
+            <div className="flex flex-row-reverse justify-between">
+              <img
+                src="../public/tvs.png"
+                alt="tvs.png"
+                className="object-fill h-10 w-56"
+              />
+              <button
+                onClick={() => navigate("/")}
+                className="h-10 bg-emerald-500 rounded-full w-24 font-bold font-inter text-white"
+              >
+                Back
+              </button>
             </div>
-            <div className="flex space-x-10 mt-10">
-              <button
-                onClick={() => setFormType(1)}
-                className="bg-green-500 text-white h-10 w-44 rounded-full font-inter font-semibold"
-              >
-                YES
-              </button>
-              <button
-                onClick={() => setFormType(2)}
-                className="bg-red-500 text-white h-10 w-44 rounded-full font-inter font-semibold"
-              >
-                NO
-              </button>
+            <div className="font-inter text-slate-800 text-lg font-semibold p-14 max-w-3xl mx-auto mt-20">
+              Experience precision in credit risk assessment with our
+              <span className="text-yellow-500"> dual-model approach. </span>
+              Tailored for existing TVS members and those yet to join, our
+              models cater to your unique financial needs. Whether you are a
+              loyal part of the family or considering joining, trust us for
+              personalized and insightful credit evaluations.
+            </div>
+            <div className="flex flex-col justify-center items-center mt-10">
+              <div className="text-3xl font-inter font-bold">
+                Are you an existing customer of TVS?
+              </div>
+              <div className="flex space-x-10 mt-10">
+                <button
+                  onClick={() => setFormType(1)}
+                  className="bg-green-500 text-white h-10 w-44 rounded-full font-inter font-semibold"
+                >
+                  YES
+                </button>
+                <button
+                  onClick={() => setFormType(2)}
+                  className="bg-red-500 text-white h-10 w-44 rounded-full font-inter font-semibold"
+                >
+                  NO
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -343,27 +368,14 @@ function Form() {
                 <h2 className="font-semibold tracking-wide text-sm font-inter">
                   Bounced in first EMI
                 </h2>
-                <div className="ml-2 flex items-center justify-start space-x-4 h-10 w-60 border border-1 border-slate-800 rounded-lg">
-                  <input
-                    type="radio"
-                    value={formData.bounced_in_first_emi}
-                    onChange={handleChange1}
-                    name="bounced_in_first_emi"
-                    required
-                    className="border border-black ml-2 h-10  p-3 rounded-lg text-sm"
-                  />
-                  <label className="font-inter ">True</label>
-                  <input
-                    type="radio"
-                    value={formData.bounced_in_first_emi}
-                    onChange={handleChange1}
-                    name="bounced_in_first_emi"
-                    required
-                    checked
-                    className="border border-black ml-2 h-10  p-3 rounded-lg text-sm"
-                  />
-                  <label className="font-inter ">False</label>
-                </div>
+                <select
+                  name="bounced_in_first_emi"
+                  className="ml-2 flex items-center justify-start space-x-4 h-10 w-60 border border-1 border-slate-800 rounded-lg"
+                  onChange={handleChange1}
+                >
+                  <option value="1">True</option>
+                  <option value="0">False</option>
+                </select>
               </div>
               <div className="flex flex-col space-y-2 items-start justify-center">
                 <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
@@ -528,16 +540,21 @@ function Form() {
                 <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
                   Product code
                 </label>
-
-                <input
-                  type="text"
-                  value={formData.product_code}
-                  onChange={handleChange1}
-                  name="product_code"
-                  required
-                  className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
-                  placeholder="SC/MO/MC/TL/RETOP"
-                />
+                <select name="product_code" onChange = {handleChange1} className="ml-2 flex items-center justify-start space-x-4 h-10 w-60 border border-1 border-slate-800 rounded-lg">
+                  {/* <input
+                    type="text"
+                    value={formData.product_code}
+                    onChange={handleChange1}
+                    name="product_code"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="SC/MO/MC/TL/RETOP"
+                  /> */}
+                  <option value="SC">SC</option>
+                  <option value="MO">MO</option>
+                  <option value="MC">MC</option>
+                  <option value="TL">TL</option>
+                </select>
               </div>
               <div className="flex flex-col space-y-2 items-start justify-center">
                 <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
@@ -570,23 +587,37 @@ function Form() {
                 <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
                   Employment Type
                 </label>
-
-                <input
-                  type="text"
-                  value={formData.employment_type}
-                  onChange={handleChange1}
+                <select
                   name="employment_type"
-                  required
-                  className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
-                  placeholder="Salaried / Self-Employed"
-                />
+                  onChange={handleChange1}
+                  className="ml-2 flex items-center justify-start space-x-4 h-10 w-60 border border-1 border-slate-800 rounded-lg"
+                >
+                  {/* <input
+                    type="text"
+                    value={formData.employment_type}
+                    onChange={handleChange1}
+                    name="employment_type"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="Salaried / Self-Employed"
+                  /> */}
+                  <option value="SELF">Self-Employed</option>
+                  <option value="SAL">Salaried</option>
+                  <option value="HOUSEWIFE">Housewife</option>
+                  <option value="STUDENT">Student</option>
+                  <option value="PENS">Pensioned</option>
+                </select>
               </div>
               <div className="flex flex-col space-y-2 items-start justify-center">
                 <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
                   Resident Type
                 </label>
-
-                <input
+                <select
+                  name="resident_type"
+                  onChange={handleChange1}
+                  className="ml-2 flex items-center justify-start space-x-4 h-10 w-60 border border-1 border-slate-800 rounded-lg"
+                >
+                  {/* <input
                   type="text"
                   value={formData.resident_type}
                   onChange={handleChange1}
@@ -594,14 +625,23 @@ function Form() {
                   required
                   className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                   placeholder="Resident Type"
-                />
+                  /> */}
+                  <option value="OWNED">Owned</option>
+                  <option value="RENT">Rented</option>
+                  <option value="OWNED BY OFFICE">Owned by Office</option>
+                  <option value="NULL">Other</option>
+                </select>
               </div>
               <div className="flex flex-col space-y-2 items-start justify-center">
                 <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
                   Tier
                 </label>
-
-                <input
+                <select
+                  name="tier"
+                  onChange={handleChange1}
+                  className="ml-2 flex items-center justify-start space-x-4 h-10 w-60 border border-1 border-slate-800 rounded-lg"
+                >
+                  {/* <input
                   type="number"
                   value={formData.tier}
                   onChange={handleChange1}
@@ -609,22 +649,34 @@ function Form() {
                   required
                   className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
                   placeholder="TIER 1/2/3/4"
-                />
+                  /> */}
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
               </div>
               <div className="flex flex-col space-y-2 items-start justify-center">
                 <label className="ml-2 font-semibold tracking-wide text-sm font-inter">
                   Gender
                 </label>
-
-                <input
-                  type="text"
-                  value={formData.gender}
-                  onChange={handleChange1}
+                <select
                   name="gender"
-                  required
-                  className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
-                  placeholder="Male / Female / Other"
-                />
+                  onChange={handleChange1}
+                  className="ml-2 flex items-center justify-start space-x-4 h-10 w-60 border border-1 border-slate-800 rounded-lg"
+                >
+                  {/* <input
+                    type="text"
+                    value={formData.gender}
+                    onChange={handleChange1}
+                    name="gender"
+                    required
+                    className="border border-black ml-2 h-10 w-60 p-3 rounded-lg text-sm"
+                    placeholder="Male / Female / Other"
+                  /> */}
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
               </div>
 
               <div className="col-span-3 h-[2rem]" />
